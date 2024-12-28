@@ -1,3 +1,4 @@
+import sys
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -51,8 +52,11 @@ WSGI_APPLICATION = "SimplyRecipes.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "SimplyRecipes",
+        "USER": "user",
+        "PASSWORD": "test123",
+        "HOST": "localhost",
     }
 }
 
@@ -74,7 +78,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Africa/Casablanca"
 
 USE_I18N = True
 
@@ -83,4 +87,26 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+STATICFILES_DIRS = [
+    BASE_DIR / "staticfiles",
+]
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
+]
+
+TESTING = "test" in sys.argv
+
+if not TESTING:
+    INSTALLED_APPS = [
+        *INSTALLED_APPS,
+        "debug_toolbar",
+    ]
+    MIDDLEWARE = [
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
+        *MIDDLEWARE,
+    ]
