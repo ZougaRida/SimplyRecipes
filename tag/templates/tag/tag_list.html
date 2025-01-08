@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}All Tags{% endblock title %}
+
+
+{% block content %}
+    <div class="tag-grid">
+        {% for tag in tag_list %}
+            <div class="tag-card">
+                <a href="{{ tag.get_absolute_url }}">
+                    {{ tag }} <br> {{ tag.recipe__count }} Recipe{{ tag.recipe__count|pluralize }}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

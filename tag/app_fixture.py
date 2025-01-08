@@ -1,6 +1,7 @@
-import requests
-import django
 import os
+
+import django
+import requests
 
 # Please note that the 2 lines SHOULD COME before importing the Tag model.
 # Otherwise, an error will be thrown.

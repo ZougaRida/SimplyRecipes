@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ tag }} Recipe{{ page_obj|length|pluralize }}
+{% endblock title %}
+
+{% block content %}
+    <h2>{{ tag }} Recipe{{ page_obj|length|pluralize }}</h2>
+    <div class="recipes-grid" hx-swap="afterend transition:true">
+        {% include 'recipe/components/recipe-grid.html' %}
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+    <script src="{% static 'htmx.js' %}"></script>
+{% endblock scripts %}
