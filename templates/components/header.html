@@ -1,15 +1,15 @@
 {% load static %}
 
 <header class="header">
-    <a href="#" class="logo">
-        <img src="{% static 'logo.svg' %}" alt="Simply Recipes Logo">
+    <a href="{% url 'index' %}" class="logo">
+        <img src="{% static 'logo.svg' %}" alt="simply recipes logo">
     </a>
 
     <div class="navigation-container">
         <nav class="navigation-grid">
-            <a href="#">Home</a>
-            <a href="#">Recipes</a>
-            <a href="#">Tags</a>
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'recipe-list' %}">Recipes</a>
+            <a href="{% url 'tag-list' %}">Tags</a>
             <a href="#">
                 <div>Contact Us</div>
             </a>
