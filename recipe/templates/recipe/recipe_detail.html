@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} {{ recipe }} Recipe Details {% endblock title %}
+
+{% block content %}
+    {% if recipe.has_been_updated %}
+        <div>
+            The info provided here has been updated manually by Admin. PLEASE NOTE THOUGH that the updates
+            were only made with the help of ChatGPT, thus no guarantees on the accuracy and reliability of the
+            provided information.
+        </div>
+    {% else %}
+        <div>
+            This Recipe has unfortunately not been updated manually by Us yet. All mistakes and default values
+            though will be taken care of in the nearest convenience!
+        </div>
+    {% endif %}
+    <div class="recipe-detail-grid">
+        <img src="{{ recipe.image_url }}" alt="Image of {{ recipe }}">
+
+        <div class="details">
+            <h1>{{ recipe }}</h1>
+            <small>Last Edited in: {{ recipe.last_modified|date:"d/m/Y" }}</small>
+            <p>{{ recipe.description }}</p>
+
+            <div class="additional-details-grid">
+                <div class="additional-detail-card">
+                    <img src="{% static 'icons/prep_time_icon.svg' %}" alt="prep time icon">
+                    <p>Prep Time</p>
+                    <span>{{ recipe.preparation_time }} min</span>
+                </div>
+                <div class="additional-detail-card">
+                    <img src="{% static 'icons/cooking_time_icon.svg' %}" alt="cooking time icon">
+                    <p>Cook Time</p>
+                    <span>{{ recipe.cooking_time }} min</span>
+                </div>
+                <div class="additional-detail-card">
+                    <img src="{% static 'icons/serving.svg' %}" alt="serving icon">
+                    <p>Serving</p>
+                    <span>{{ recipe.number_of_servings }}</span>
+                </div>
+            </div>
+            <div class="tags-grid">
+                <small>Tags:</small>
+                {% for tag in recipe.tags.all %}
+                    <small class="button">
+                        <a href="{{ tag.get_absolute_url }}">{{ tag }}</a>
+                    </small>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="instructions-grid">
+            <h2>Instructions</h2>
+            {% for instruction in recipe.instructions_list %}
+                <div class="instruction-card">
+                    <div class="step-title">
+                        <p>Step {{ forloop.counter }}</p>
+                        <hr>
+                    </div>
+                    <p>{{ instruction }}</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <ul class="items-grid">
+            <h3>Ingredients</h3>
+            {# PLEASE NOTE here that we're getting records from the RecipeIngredient Model #}
+            {# and for each record we get along with it the cached ingredient model. #}
+            {# Please see the RecipeDetail View for more details on how this is done. #}
+            {% for record in recipe.recipe_ingredients %}
+                <li>
+                    <div>
+                        <img src="{{ record.ingredient.image_url }}" alt="Image of {{ record.ingredient }}">
+                        <p>{{ record.quantity }} of {{ record.ingredient }}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <ul class="items-grid">
+            <h3>Tools</h3>
+            {% for tool in recipe.tools.all %}
+                <li>{{ tool }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock content %}

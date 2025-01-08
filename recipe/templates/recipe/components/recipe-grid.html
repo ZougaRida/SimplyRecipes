@@ -1,0 +1,22 @@
+{# Important to read to understand what's going on #}
+{# This is the recipes-grid component used in multiple templates #}
+{# It takes care of the pagination logic by checking if last recipe card shows up in user view #}
+{# to issue up the request and append the next list of recipes to the recipes-grid #}
+{# of course if there is any next page at all otherwise it won't #}
+{# this is made sure by the forloop.last and page_obj.has_next condition #}
+{# there is the url variable too which is really important too to know to which view #}
+{# to point to to make pagination and infinite scroll effect work #}
+
+
+{% for recipe in page_obj %}
+    {% if forloop.last and page_obj.has_next %}
+        <div hx-get="?page={{ page_obj.next_page_number }}" hx-trigger="revealed"
+                class="recipe-card">
+            {% include 'recipe/components/recipe-card.html' %}
+        </div>
+    {% else %}
+        <div class="recipe-card">
+            {% include 'recipe/components/recipe-card.html' %}
+        </div>
+    {% endif %}
+{% endfor %}

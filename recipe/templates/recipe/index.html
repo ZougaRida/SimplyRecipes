@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home Page{% endblock title %}
+
+{% block content %}
+    <div class="main-image">
+        <img src="{% static 'recipe/images/main.jpeg' %}" alt="main image">
+        <div class="headings">
+            <h1>Simply Recipes</h1>
+            <h2>No Fluff, Just Recipes</h2>
+        </div>
+    </div>
+
+
+
+    <div class="page-grid">
+        <aside hx-target="#recipes-grid" hx-swap="transition:true show:top">
+            <h3>Tags</h3>
+            <nav>
+                <button hx-get="{% url 'index' %}">
+                    All
+                </button>
+
+                {% for tag in tag_list %}
+                    <button hx-get="?tag={{ tag }}"> {{ tag }} </button>
+                {% endfor %}
+            </nav>
+        </aside>
+
+        <div id="recipes-grid" class="recipes-grid" hx-swap="afterend transition:true">
+            {% include 'recipe/components/recipe-grid.html' %}
+        </div>
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+    <script src="{% static 'htmx.js' %}"></script>
+{% endblock scripts %}

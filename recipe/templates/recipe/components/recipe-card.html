@@ -1,0 +1,8 @@
+{% load static %}
+<a href="{{ recipe.get_absolute_url }}">
+    <img src="{{ recipe.image_url }}" alt="Image of {{ recipe }}">
+    <div class="recipe-wrapper">
+        <h4>{{ recipe }}</h4>
+        <p>Prep : {{ recipe.preparation_time }} min | Cook : {{ recipe.cooking_time }} min</p>
+    </div>
+</a>

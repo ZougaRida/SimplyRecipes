@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} About Us {% endblock title %}
+
+
+{% block content %}
+    <div class="about-grid">
+        <img src="{% static 'recipe/images/about.jpeg' %}" alt="about image">
+
+        <div class="contact-section">
+            <p>This Project is for anyone who appreciates the Amazing Contributions made by
+                <a href="https://johnsmilga.com/" target="_blank">John Smilga</a>
+                and at the same time wants to learn About the Wonderful
+                <a href="https://www.djangoproject.com/" target="_blank">Django</a>
+                framework :D
+            </p>
+            <a href="#" class="button">Contact Us</a>
+        </div>
+    </div>
+
+    <h2>Look at this Awesomeness!</h2>
+    <div class="recipes-grid">
+        {% for recipe in recipe_list %}
+            <div class="recipe-card">
+                {% include 'recipe/components/recipe-card.html' %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

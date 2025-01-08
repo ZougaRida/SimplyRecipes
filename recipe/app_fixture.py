@@ -83,8 +83,8 @@ with transaction.atomic():
                 for recipe in recipes:
                     i = 1
                     while (
-                            recipe[f"strIngredient{i}"] is not None
-                            and recipe[f"strIngredient{i}"] != ""
+                        recipe[f"strIngredient{i}"] is not None
+                        and recipe[f"strIngredient{i}"] != ""
                     ):
                         # There seems to be some ingredients that are used and weren't saved previously when saving
                         # all ingredient instances. Thus, we have to get or create them if not existing in Ingredient

@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+
 from tag.models import Tag
 
 # A default description to all recipes still not modified yet.
