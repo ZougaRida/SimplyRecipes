@@ -6,7 +6,7 @@ class Tag(models.Model):
     name = models.CharField(max_length=50, primary_key=True)
 
     def get_absolute_url(self):
-        return reverse("tag-detail", kwargs={"pk": self.name})
+        return reverse("tag-detail", kwargs={"tag": self.name})
 
     def __str__(self):
         return self.name
