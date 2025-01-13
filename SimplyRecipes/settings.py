@@ -7,7 +7,7 @@ SECRET_KEY = "django-insecure-gfu7)#$1r5var0qef=jdhj8chd&uu8*m58taijb+qy+oot%n6(
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "testserver"]
 
 
 INSTALLED_APPS = [
@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "tag.apps.TagConfig",
     "recipe.apps.RecipeConfig",
+    "django_browser_reload",
 ]
 
 MIDDLEWARE = [
@@ -29,6 +30,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = "SimplyRecipes.urls"
@@ -104,10 +106,10 @@ INTERNAL_IPS = [
 TESTING = "test" in sys.argv
 
 if not TESTING:
-    INSTALLED_APPS = [
-        *INSTALLED_APPS,
-        "debug_toolbar",
-    ]
+    # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#disable-the-toolbar-when-running-tests-optional
+    # the proposed way in the link for installed apps seems to be a bug for PYCHARM
+    # https://stackoverflow.com/questions/48740345/pycharm-doesnt-recognize-min-css-file-unresolved-template-reference-django/79223508#79223508
+    INSTALLED_APPS.append("debug_toolbar")
     MIDDLEWARE = [
         "debug_toolbar.middleware.DebugToolbarMiddleware",
         *MIDDLEWARE,
