@@ -23,11 +23,6 @@ class TagDetailView(ListView):
             "name", "image_url", "preparation_time", "cooking_time"
         )
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["tag"] = self.kwargs["tag"]
-        return context
-
     def get_template_names(self):
         """
         Same as IndexView, based on whether the request was issued with HTMX or not, the template
@@ -40,3 +35,10 @@ class TagDetailView(ListView):
             template_name = "tag/tag_detail.html"
 
         return template_name
+
+    def get_context_data(self, **kwargs):
+        """Change that page_obj name to something meaningful."""
+
+        context = super().get_context_data(**kwargs)
+        context["recipe_list_pagination"] = context.pop("page_obj")
+        return context

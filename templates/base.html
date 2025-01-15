@@ -1,5 +1,13 @@
 {% extends 'skeleton.html' %}
+{% load static %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+
+    {% block styles1 %}{% endblock styles1 %}
+{% endblock styles %}
 
 {% block body %}
     {% include 'components/header.html' %}
@@ -10,3 +18,8 @@
 
     {% include 'components/footer.html' %}
 {% endblock body %}
+
+{% block scripts %}
+    <script src="{% static 'js/header.js' %}"></script>
+    {% block scripts1 %}{% endblock scripts1 %}
+{% endblock scripts %}

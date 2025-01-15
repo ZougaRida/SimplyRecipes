@@ -2,16 +2,25 @@
 {% load static %}
 
 {% block title %}
-    {{ tag }} Recipe{{ page_obj|length|pluralize }}
+    {{ view.kwargs.tag }} Recipe{{ recipe_list_pagination|length|pluralize }}
 {% endblock title %}
 
+{% block styles1 %}
+    <link
+        rel="stylesheet"
+        href="{% static 'recipe/components/recipe-grid.css' %}"
+    />
+{% endblock styles1 %}
+
 {% block content %}
-    <h2>{{ tag }} Recipe{{ page_obj|length|pluralize }}</h2>
-    <div class="recipes-grid" hx-swap="afterend transition:true">
-        {% include 'recipe/components/recipe-grid.html' %}
-    </div>
+    <h1 class="recipes-grid-title">
+        {{ view.kwargs.tag }}
+        Recipe{{ recipe_list_pagination|length|pluralize }}
+    </h1>
+
+    {% include 'recipe/components/spinner-and-recipe-grid.html' %}
 {% endblock content %}
 
-{% block scripts %}
+{% block scripts1 %}
     <script src="{% static 'htmx.js' %}"></script>
-{% endblock scripts %}
+{% endblock scripts1 %}

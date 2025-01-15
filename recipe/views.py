@@ -1,3 +1,5 @@
+from time import sleep
+
 from django.core.paginator import Paginator
 from django.db.models import Prefetch
 from django.views.generic import DetailView, ListView, TemplateView
@@ -23,13 +25,13 @@ class IndexView(TemplateView):
 
         if tag:
             recipe_list = Recipe.objects.filter(tags__name=tag)
-            # If tag was sent as a parameter, then this came from filtering based on tag
-            # with the help of HTMX, thus the url to point to for pagination changes too.
+            # If tag was sent as a parameter, then this came from filtering based on tag with the help of HTMX.
+            # or not if url was copy pasted in browser as is with tag paramater
         else:
             # Of course, if no tag was sent as a parameter, then either this request was made
             # without HTMX or using the "All" button with HTMX, either case we need to get the entire list
             # of recipes and paginate of course to make infinite scroll effect.
-            # the pagination link in this case will be the usual index without any tag as parameter
+
             recipe_list = Recipe.objects.all()
 
         # this is just to make sure that we only fetch the following fields from the database.
@@ -41,20 +43,22 @@ class IndexView(TemplateView):
         paginator = Paginator(recipe_list, 12)
         page_number = self.request.GET.get("page")
         page_obj = paginator.get_page(page_number)
-        context["page_obj"] = page_obj
+        context["recipe_list_pagination"] = page_obj
 
         # Of course, if the request was not issued with the help of HTMX,
         # then we need to render the entire page, and thus we will need to fetch tags from database
         # the HX-Request header is true when using HTMX
-        # otherwise it's None since it doesn't exist in headers if the request was issued without HTMX.
+        # otherwise it's None since it doesn't exist in request headers if the request was issued without HTMX.
         if self.request.headers.get("HX-Request") is None:
             context["tag_list"] = Tag.objects.all()
 
         return context
 
     def get_template_names(self):
-        """Chooses whether to render entire index template or only the recipes-grid partial if request was
-        issued using HTMX."""
+        """
+        Chooses whether to render entire index template or only the recipes-grid partial if request was
+        issued using HTMX.
+        """
 
         if self.request.headers.get("HX-Request"):
             template_name = "recipe/components/recipe-grid.html"
@@ -65,19 +69,15 @@ class IndexView(TemplateView):
 
 
 class RecipeListView(ListView):
-    """
-    This View is highly important featuring the active search.
-
-    This View can be called either with GET or POST requests.
-    for GET requests, it will display all recipes with infinite scroll effect.
-    for POST requests, it will filter the recipes based on the search query and still maintain the infinite scroll effect.
-    """
+    """This View is highly important featuring the active search using HTMX active search utility."""
 
     paginate_by = 12
+    context_object_name = "recipe_list_pagination"
 
     def get_queryset(self):
         """the code self explains itself."""
         query = self.request.GET.get("query")
+        # note here that either query is None or empty string, in both cases we return all recipes which is what we want
 
         if query:
             recipes = Recipe.objects.filter(name__icontains=query)
@@ -87,13 +87,24 @@ class RecipeListView(ListView):
         return recipes.only("name", "image_url", "preparation_time", "cooking_time")
 
     def get_template_names(self):
-        """Same logic as Index View template choosing."""
+        """
+        Same logic as Index View template choosing.
+        Only here we are showing off the spinners in template.
+        """
         if self.request.headers.get("HX-Request"):
+            sleep(1)
             template_name = "recipe/components/recipe-grid.html"
         else:
             template_name = "recipe/recipe_list.html"
 
         return template_name
+
+    def get_context_data(self, **kwargs):
+        """Change that page_obj name to something meaningful."""
+
+        context = super().get_context_data(**kwargs)
+        context["recipe_list_pagination"] = context.pop("page_obj")
+        return context
 
 
 class RecipeDetailView(DetailView):

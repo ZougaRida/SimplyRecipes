@@ -1,25 +1,32 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} About Us {% endblock title %}
+{% block title %}About Us{% endblock title %}
 
+{% block styles1 %}
+    <link rel="stylesheet" href="{% static 'recipe/css/about.css' %}" />
+    <link
+        rel="stylesheet"
+        href="{% static 'recipe/components/recipe-grid.css' %}"
+    />
+{% endblock styles1 %}
 
 {% block content %}
-    <div class="about-grid">
-        <img src="{% static 'recipe/images/about.jpeg' %}" alt="about image">
+    <section class="about-grid">
+        <img src="{% static 'base-images/about.jpeg' %}" alt="about image" />
 
         <div class="contact-section">
-            <p>This Project is for anyone who appreciates the Amazing Contributions made by
-                <a href="https://johnsmilga.com/" target="_blank">John Smilga</a>
-                and at the same time wants to learn About the Wonderful
-                <a href="https://www.djangoproject.com/" target="_blank">Django</a>
-                framework :D
+            <p>
+                This Project is an attempt to reverse the Simply Recipes Project made by
+                <a href="https://johnsmilga.com/" target="_blank">John Smilga</a>.
+                Note though that maybe one day this project will actually evolve and achieve
+                new objectives.
             </p>
             <a href="#" class="button">Contact Us</a>
         </div>
-    </div>
+    </section>
 
-    <h2>Look at this Awesomeness!</h2>
+    <h1 class="recipes-grid-title">Look at this Awesomeness!</h1>
     <div class="recipes-grid">
         {% for recipe in recipe_list %}
             <div class="recipe-card">

@@ -1,0 +1,10 @@
+<div class="spinner-and-grid">
+    <div
+        class="recipes-grid"
+        hx-swap="afterend transition:true settle:50ms"
+        hx-indicator=".spinner-loader"
+    >
+        {% include 'recipe/components/recipe-grid.html' %}
+    </div>
+    <div class="spinner-loader htmx-indicator"></div>
+</div>

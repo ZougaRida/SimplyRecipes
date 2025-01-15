@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}All Tags{% endblock title %}
 
+{% block styles1 %}
+    <link rel="stylesheet" href="{% static 'tag/tag_list.css' %}" />
+{% endblock styles1 %}
 
 {% block content %}
     <div class="tag-grid">
         {% for tag in tag_list %}
             <div class="tag-card">
                 <a href="{{ tag.get_absolute_url }}">
-                    {{ tag }} <br> {{ tag.recipe__count }} Recipe{{ tag.recipe__count|pluralize }}
+                    {{ tag }}
+                    <br />
+                    {{ tag.recipe__count }}
+                    Recipe{{ tag.recipe__count|pluralize }}
                 </a>
             </div>
         {% endfor %}

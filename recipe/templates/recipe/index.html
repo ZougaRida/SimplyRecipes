@@ -3,37 +3,51 @@
 
 {% block title %}Home Page{% endblock title %}
 
+{% block styles1 %}
+    <link rel="stylesheet" href="{% static 'recipe/css/index.css' %}" />
+    <link
+        rel="stylesheet"
+        href="{% static 'recipe/components/recipe-grid.css' %}"
+    />
+{% endblock styles1 %}
+
 {% block content %}
-    <div class="main-image">
-        <img src="{% static 'recipe/images/main.jpeg' %}" alt="main image">
+    <section class="main-image">
+        <img src="{% static 'base-images/main.jpeg' %}" alt="main image" />
         <div class="headings">
             <h1>Simply Recipes</h1>
             <h2>No Fluff, Just Recipes</h2>
         </div>
-    </div>
+    </section>
 
-
-
-    <div class="page-grid">
-        <aside hx-target="#recipes-grid" hx-swap="transition:true show:top">
+    <main class="page-grid">
+        <aside
+            hx-target=".recipes-grid"
+            hx-swap="transition:true show:top settle:50ms"
+            hx-push-url="true"
+        >
             <h3>Tags</h3>
             <nav>
-                <button hx-get="{% url 'index' %}">
+                <button hx-get="{% url 'index' %}" class="button active">
                     All
                 </button>
 
                 {% for tag in tag_list %}
-                    <button hx-get="?tag={{ tag }}"> {{ tag }} </button>
+                    <button
+                        hx-get="{% querystring tag=tag %}"
+                        class="button non-active"
+                    >
+                        {{ tag }}
+                    </button>
                 {% endfor %}
             </nav>
         </aside>
 
-        <div id="recipes-grid" class="recipes-grid" hx-swap="afterend transition:true">
-            {% include 'recipe/components/recipe-grid.html' %}
-        </div>
-    </div>
+        {% include 'recipe/components/spinner-and-recipe-grid.html' %}
+    </main>
 {% endblock content %}
 
-{% block scripts %}
+{% block scripts1 %}
     <script src="{% static 'htmx.js' %}"></script>
-{% endblock scripts %}
+    <script src="{% static 'recipe/js/index.js' %}"></script>
+{% endblock scripts1 %}

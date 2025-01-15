@@ -1,17 +1,23 @@
-{# Important to read to understand what's going on #}
-{# This is the recipes-grid component used in multiple templates #}
-{# It takes care of the pagination logic by checking if last recipe card shows up in user view #}
-{# to issue up the request and append the next list of recipes to the recipes-grid #}
-{# of course if there is any next page at all otherwise it won't #}
-{# this is made sure by the forloop.last and page_obj.has_next condition #}
-{# there is the url variable too which is really important too to know to which view #}
-{# to point to to make pagination and infinite scroll effect work #}
+{% comment "READ THIS BEFORE TO UNDERSTAND WHAT'S GOING ON" %}
+    This is the recipes-grid component used in multiple templates. It takes care of
+    the pagination logic by checking if last recipe card shows up in user scrolling
+    to issue up the request and append the next list of recipes to the recipes-grid.
+    Of course, if there is any next page, otherwise it won't. This is made sure by the
+    forloop.last and page_obj.has_next condition.
 
+    Another Interesting note is the hx-get attribute to determine to which url to point to.
+    Note we're using the brand new {% querystring %} tag introduced in Django 5.1
+    check the documentation to understand why are we using it as they explain it better than I will.
+    https://docs.djangoproject.com/en/5.1/ref/templates/builtins/#querystring
+{% endcomment %}
 
-{% for recipe in page_obj %}
-    {% if forloop.last and page_obj.has_next %}
-        <div hx-get="?page={{ page_obj.next_page_number }}" hx-trigger="revealed"
-                class="recipe-card">
+{% for recipe in recipe_list_pagination %}
+    {% if forloop.last and recipe_list_pagination.has_next %}
+        <div
+            hx-get="{% querystring page=recipe_list_pagination.next_page_number %}"
+            hx-trigger="revealed"
+            class="recipe-card"
+        >
             {% include 'recipe/components/recipe-card.html' %}
         </div>
     {% else %}
@@ -19,4 +25,14 @@
             {% include 'recipe/components/recipe-card.html' %}
         </div>
     {% endif %}
+
+
+
+{# this is of course in case the recipes-grid will be empty #}
+{# which could be the case in RecipeListView #}
+{% empty %}
+    <div class="empty-grid">
+        No matching Recipes found for your search query.
+    </div>
+
 {% endfor %}

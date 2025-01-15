@@ -2,21 +2,20 @@
 
 <header class="header">
     <a href="{% url 'index' %}" class="logo">
-        <img src="{% static 'logo.svg' %}" alt="simply recipes logo">
+        <img src="{% static 'logo.svg' %}" alt="simply recipes logo" />
     </a>
 
-    <div class="navigation-container">
+    <div class="navigation-container hide-navigation">
         <nav class="navigation-grid">
             <a href="{% url 'index' %}">Home</a>
             <a href="{% url 'recipe-list' %}">Recipes</a>
             <a href="{% url 'tag-list' %}">Tags</a>
             <a href="{% url 'about' %}">About Us</a>
             <a href="#">
-                <div>Contact Us</div>
+                <div class="button contact-link">Contact Us</div>
             </a>
         </nav>
     </div>
 
-    <img src="{% static 'icons/hamburger.svg' %}" alt="hamburger menu">
+    <i class="bx bx-menu menu-icon"></i>
 </header>
-
