@@ -1,5 +1,3 @@
-from time import sleep
-
 from django.core.paginator import Paginator
 from django.db.models import Prefetch
 from django.views.generic import DetailView, ListView, TemplateView
@@ -87,12 +85,7 @@ class RecipeListView(ListView):
         return recipes.only("name", "image_url", "preparation_time", "cooking_time")
 
     def get_template_names(self):
-        """
-        Same logic as Index View template choosing.
-        Only here we are showing off the spinners in template.
-        """
         if self.request.headers.get("HX-Request"):
-            sleep(1)
             template_name = "recipe/components/recipe-grid.html"
         else:
             template_name = "recipe/recipe_list.html"

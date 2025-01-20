@@ -1,0 +1,16 @@
+footer {
+    background-color: var(--secondary-color-950);
+    padding: 30px 10px;
+    color: var(--background-color);
+    text-align: center;
+    margin-top: auto;
+    font-size: 1.125rem;
+}
+
+.link {
+    color: var(--secondary-color-150);
+
+    &:hover {
+        color: var(--secondary-color-350);
+    }
+}

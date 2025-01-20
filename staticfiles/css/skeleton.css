@@ -1,0 +1,142 @@
+/*=== defining colors and some general variables to work within project ===*/
+
+:root {
+    /* primary color */
+    --primary-color-50: #e7e6ff;
+    --primary-color-100: #d0ccff;
+    --primary-color-150: #b8b3ff;
+    --primary-color-200: #a099ff;
+    --primary-color-250: #8980ff;
+    --primary-color-300: #7166ff;
+    --primary-color-350: #594dff;
+    --primary-color-400: #4133ff;
+    --primary-color-450: #2a1aff;
+    --primary-color-500: #1200ff;
+    --primary-color-550: #1000e6;
+    --primary-color-600: #0e00cc;
+    --primary-color-650: #0d00b3;
+    --primary-color-700: #0b0099;
+    --primary-color-750: #090080;
+    --primary-color-800: #070066;
+    --primary-color-850: #05004c;
+    --primary-color-900: #040033;
+    --primary-color-950: #020019;
+
+    /* secondary color */
+    --secondary-color-50: #f6f6f5;
+    --secondary-color-100: #eeecec;
+    --secondary-color-150: #e5e3e2;
+    --secondary-color-200: #dcdad8;
+    --secondary-color-250: #d4d1cf;
+    --secondary-color-300: #cbc7c5;
+    --secondary-color-350: #c2bebb;
+    --secondary-color-400: #b9b5b1;
+    --secondary-color-450: #b1aba8;
+    --secondary-color-500: #a8a29e;
+    --secondary-color-550: #97928e;
+    --secondary-color-600: #86827e;
+    --secondary-color-650: #76716f;
+    --secondary-color-700: #65615f;
+    --secondary-color-750: #54514f;
+    --secondary-color-800: #43413f;
+    --secondary-color-850: #32312f;
+    --secondary-color-900: #222020;
+    --secondary-color-950: #111010;
+
+    --text-color: #000;
+    --background-color: #fff;
+    --transition: 0.3s ease;
+    --letter-spacing: 2px;
+
+    --margin-inline: 5vw;
+    /* max width for entire page in large screens */
+    --max-width: 900px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/*=== the reason for the display flex in body is for pages where content is low
+so that footer sticks down to the page ===*/
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    font-family: "Poppins", sans-serif;
+    background-color: var(--secondary-color-50);
+    color: var(--text-color);
+    /*line-height: 1.35;*/
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: "Roboto Condensed", serif;
+}
+
+img {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+a {
+    text-decoration-style: dashed;
+}
+
+i {
+    font-size: 36px;
+}
+
+/*=== normalizing the form's html tags ===*/
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+}
+
+button {
+    border: none;
+}
+
+input {
+    outline: none;
+}
+
+/*=== these are some basic class utilities for the entire project ===*/
+
+.button {
+    padding: 7px 10px;
+    border-radius: 5px;
+    background-color: var(--primary-color-500);
+    color: var(--background-color);
+
+    &:hover {
+        background-color: var(--primary-color-650);
+    }
+}
+
+.display-none {
+    display: none;
+}
+
+@media screen and (min-width: 1000px) {
+    :root {
+        /* for some reason, auto doesn't behave as expected in this case */
+        --margin-inline: calc((100% - var(--max-width)) / 2);
+        /* --margin-inline: auto; */
+    }
+
+
+}

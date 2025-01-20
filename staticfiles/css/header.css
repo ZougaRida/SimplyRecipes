@@ -1,0 +1,110 @@
+.header {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: center;
+    margin-inline: var(--margin-inline);
+    letter-spacing: var(--letter-spacing);
+    padding-block: 30px 50px;
+    max-width: var(--max-width);
+}
+
+.logo {
+    display: inline-block;
+    max-width: 220px;
+}
+
+.navigation-container {
+    grid-column: span 2;
+    grid-row: 2;
+    padding-top: 10px;
+    display: grid;
+    transition: var(--transition) grid-template-rows;
+}
+
+.navigation-grid {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-weight: 500;
+    font-size: 1.125rem;
+
+    & a {
+        color: var(--secondary-color-800);
+        text-decoration: none;
+        width: 100%;
+        text-align: center;
+        padding-block: 1rem;
+        border-top: 2px solid var(--secondary-color-300);
+
+        &:hover {
+            color: var(--primary-color-500);
+        }
+    }
+}
+
+
+/* these 2 classes are used to show and hide navigation | see header.js file */
+.show-navigation {
+    grid-template-rows: 1fr;
+}
+
+.hide-navigation {
+    grid-template-rows: 0fr;
+}
+
+
+.contact-link {
+    width: fit-content;
+    margin-inline: auto;
+}
+
+.menu-icon {
+    margin-left: auto;
+    translate: 9px;
+}
+
+
+
+@media screen and (min-width: 850px) {
+    .menu-icon {
+        display: none;
+    }
+
+    .header {
+        display: flex;
+        align-items: center;
+    }
+
+    .navigation-container {
+        display: block;
+        flex-grow: 1;
+        padding-block: 0;
+    }
+
+    .navigation-grid {
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+        padding-left: clamp(2.5rem, 5vw, 100px);
+
+        & a {
+            padding-block: 0;
+            border-top: none;
+            width: fit-content;
+        }
+
+        & a:last-child {
+            margin-left: auto;
+        }
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .header {
+        width: 100%;
+        /* It seems to be an issue with header not stretching to entire width */
+    }
+
+
+}
+

@@ -1,0 +1,9 @@
+.container {
+    margin-inline: var(--margin-inline);
+    /* this is again if page content is way too low */
+    margin-bottom: 50px;
+
+    max-width: var(--max-width);
+}
+
+

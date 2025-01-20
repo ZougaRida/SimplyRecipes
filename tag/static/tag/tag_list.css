@@ -1,0 +1,28 @@
+.tag-grid {
+    display: grid;
+    row-gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    column-gap: 10px;
+}
+
+.tag-card {
+    text-align: center;
+    font-size: 1.125rem;
+    letter-spacing: var(--letter-spacing);
+    background-color: var(--primary-color-50);
+    color: var(--primary-color-650);
+    border-radius: 5px;
+    font-weight: 600;
+
+    & a {
+        display: block;
+        padding: 15px 8px;
+        color: inherit;
+        text-decoration: none;
+    }
+
+    &:hover {
+        background-color: var(--primary-color-550);
+        color: var(--background-color);
+    }
+}

@@ -2,7 +2,8 @@
 {% load static %}
 
 {% block title %}
-    {{ view.kwargs.tag }} Recipe{{ recipe_list_pagination|length|pluralize }}
+    {{ view.kwargs.tag }}
+    Recipe{{ recipe_list_pagination|length|pluralize }}
 {% endblock title %}
 
 {% block styles1 %}

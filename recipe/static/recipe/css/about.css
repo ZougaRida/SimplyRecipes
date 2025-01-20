@@ -1,0 +1,47 @@
+.about-grid {
+    display: grid;
+    row-gap: 20px;
+    margin-bottom: 30px;
+
+    & img {
+        max-height: 400px;
+    }
+}
+
+.contact-section {
+    max-width: 450px;
+
+    & p {
+        margin-bottom: 1rem;
+        font-size: 1.063rem;
+
+        & a {
+            color: var(--primary-color-500);
+
+            &:hover {
+                color: var(--primary-color-650);
+            }
+        }
+    }
+
+    & .contact-link {
+        text-decoration: none;
+        display: inline-block;
+        font-size: 1.125rem;
+    }
+}
+
+@media screen and (min-width: 650px) {
+    .about-grid {
+        grid-template-columns: auto auto;
+        column-gap: 20px;
+    }
+
+    .contact-section {
+        order: -1;
+    }
+
+    .contact-section p {
+        line-height: 3;
+    }
+}

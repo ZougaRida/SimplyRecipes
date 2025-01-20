@@ -12,10 +12,10 @@
 {% block title %}All Recipes{% endblock title %}
 
 {% block content %}
-    <h1>Search for Recipes</h1>
+    <h1>I am Looking for:</h1>
 
     <div class="input-section">
-        <i class='bx bx-search-alt'></i>
+        <i class="bx bx-search-alt search-icon"></i>
         <input
             type="search"
             name="query"
@@ -26,8 +26,8 @@
             hx-push-url="true"
             hx-indicator=".text-loader"
         />
-        <div class="text-loader htmx-indicator"></div>
     </div>
+    <div class="text-loader htmx-indicator"></div>
 
     {% include 'recipe/components/spinner-and-recipe-grid.html' %}
 {% endblock content %}

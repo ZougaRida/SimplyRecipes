@@ -1,0 +1,64 @@
+h1 {
+    margin-block: 30px;
+}
+
+.input-section {
+    position: relative;
+
+    /* the height variable is used to place icon in input, and making changes for this value straightforward if needed*/
+    --height: 54px;
+    /* the 4 here is for the border top and bottom of 2px each */
+
+    & input {
+        height: calc(var(--height));
+        border: 2px solid var(--secondary-color-300);
+        padding-inline: calc(
+                0.8 * var(--height) + 10px /* the 10px is the same value used in left for icon */
+        ) 10px;
+        width: 100%;
+        max-width: 500px;
+
+        &:focus-visible {
+            border-color: var(--primary-color-400);
+            background-color: var(--primary-color-50);
+        }
+
+        /* this is for styling that cancel button that shows up */
+
+        &::-webkit-search-cancel-button {
+            padding: 10px;
+        }
+    }
+
+    & .search-icon {
+        font-size: calc(0.8 * var(--height));
+        color: var(--primary-color-300);
+        position: absolute;
+        top: calc(var(--height) * 0.1);
+        left: 10px;
+        /* same as value used in calc for input padding inline */
+    }
+}
+
+.text-loader {
+    margin-block: 30px;
+    width: fit-content;
+    font-size: 40px;
+    font-family: system-ui, sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #0000;
+    -webkit-text-stroke: 1px #000;
+    background: linear-gradient(90deg, #0000 33%, #000 0 67%, #0000 0) 0/300% 100% no-repeat text;
+    animation: l2 2s linear infinite;
+}
+
+.text-loader:before {
+    content: "Loading ...";
+}
+
+@keyframes l2 {
+    0% {
+        background-position: 100%;
+    }
+}

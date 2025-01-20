@@ -1,0 +1,136 @@
+.callout-card {
+    padding: 20px 10px;
+    background-color: var(--callout-background-color);
+    color: var(--callout-text-color);
+    border-left: 7px solid var(--callout-border-color);
+    margin-bottom: 20px;
+}
+
+.modified {
+    --callout-border-color: #9eeaf9;
+    --callout-text-color: #055160;
+    --callout-background-color: #cff4fc;
+}
+
+.not-modified {
+    --callout-border-color: #f1aeb5;
+    --callout-text-color: #58151c;
+    --callout-background-color: #f8d7da;
+}
+
+.recipe-main {
+    display: grid;
+    row-gap: 30px;
+
+    & img {
+        max-height: 400px;
+    }
+}
+
+.details {
+    display: grid;
+    row-gap: 10px;
+
+    & h1 {
+        margin: 0;
+    }
+}
+
+.additional-details-grid {
+    display: flex;
+    justify-content: space-between;
+    color: var(--primary-color-550);
+    text-align: center;
+}
+
+.additional-detail-card {
+    & p {
+        color: var(--secondary-color-850);
+    }
+}
+
+.tags-grid {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 20px;
+
+    & a {
+        text-decoration: none;
+        background-color: var(--primary-color-500);
+        padding: 2px 5px;
+        color: var(--background-color);
+        font-weight: 600;
+        border-radius: 3px;
+    }
+}
+
+.additional-details {
+    margin-top: 30px;
+    display: grid;
+    row-gap: 50px;
+}
+
+.instructions-grid {
+    display: grid;
+    row-gap: 20px;
+    align-self: start;
+}
+
+.step-title {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-bottom: 3px;
+    color: var(--primary-color-500);
+    font-size: 1.125rem;
+}
+
+.step-title hr {
+    flex-grow: 1;
+    height: 3px;
+    background-color: var(--secondary-color-300);
+    border: none;
+    border-radius: 100vw;
+}
+
+.items-grid {
+    & li {
+        padding-block: 1rem;
+        border-bottom: 2px solid var(--primary-color-700);
+        list-style-type: none;
+    }
+
+    & h3 {
+        font-size: 1.25rem;
+        margin-bottom: 20px;
+    }
+}
+
+.ingredient-card {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    & img {
+        width: 100px;
+        aspect-ratio: 1;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .recipe-main {
+        grid-template-columns: 45% calc(55% - 20px);
+        column-gap: 20px;
+    }
+
+    .additional-details {
+        grid-template-columns: calc(65% - 20px) 35%;
+        column-gap: 20px;
+        row-gap: 30px;
+    }
+
+    .instructions-grid {
+        grid-row: span 2;
+    }
+}

@@ -1,0 +1,115 @@
+/*=== class utilities for styling the recipes-grid, its spinner and the recipe card ===*/
+
+.spinner-and-grid {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+}
+
+.recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+    row-gap: 50px;
+    column-gap: 20px;
+}
+
+.recipes-grid-title {
+    margin-bottom: 30px;
+}
+
+.recipe-card {
+    border: 1px solid var(--secondary-color-450);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--primary-color-50);
+    transition: var(--transition);
+
+    /* this is to make font size of card change based on its width */
+    container-type: inline-size;
+
+    & img {
+        max-height: 280px;
+    }
+
+    & a {
+        text-decoration: none;
+        color: inherit;
+        display: grid;
+        height: 100%;
+        row-gap: 10px;
+        grid-template-rows: auto 1fr;
+        padding-bottom: 10px;
+    }
+
+    &:hover {
+        transform: translateY(5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.recipe-wrapper {
+    padding-inline: 10px;
+    color: var(--secondary-color-800);
+    display: grid;
+    align-content: space-between;
+    font-size: clamp(1.125rem, 8cqi, 1.5rem);
+
+    & h4 {
+        font-size: 1.125em;
+        color: var(--primary-color-850);
+    }
+
+    & p {
+        font-size: 0.75em;
+    }
+}
+
+.spinner-loader {
+    width: 100px;
+    aspect-ratio: 1;
+    display: grid;
+    border-radius: 50%;
+    background: linear-gradient(
+            0deg,
+            rgb(0 0 0/50%) 30%,
+            #0000 0 70%,
+            rgb(0 0 0/100%) 0
+    ) 50%/8% 100%,
+    linear-gradient(
+            90deg,
+            rgb(0 0 0/25%) 30%,
+            #0000 0 70%,
+            rgb(0 0 0/75%) 0
+    ) 50%/100% 8%;
+    background-repeat: no-repeat;
+    animation: l23 1s infinite steps(12);
+    align-self: center;
+}
+
+.spinner-loader::before,
+.spinner-loader::after {
+    content: "";
+    grid-area: 1/1;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0.915;
+    transform: rotate(30deg);
+}
+
+.spinner-loader::after {
+    opacity: 0.83;
+    transform: rotate(60deg);
+}
+
+@keyframes l23 {
+    100% {
+        transform: rotate(1turn);
+    }
+}
+
+/* styling the div when grid is empty from recipe cards */
+
+.empty-grid {
+    grid-column: 1 / -1;
+    font-size: 3rem;
+    font-weight: 500;
+}

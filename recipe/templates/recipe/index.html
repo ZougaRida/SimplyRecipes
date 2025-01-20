@@ -26,16 +26,16 @@
             hx-swap="transition:true show:top settle:50ms"
             hx-push-url="true"
         >
-            <h3>Tags</h3>
+            <h3>Filters</h3>
             <nav>
-                <button hx-get="{% url 'index' %}" class="button active">
+                <button hx-get="{% url 'index' %}" class="active">
                     All
                 </button>
 
                 {% for tag in tag_list %}
                     <button
                         hx-get="{% querystring tag=tag %}"
-                        class="button non-active"
+                        class="non-active"
                     >
                         {{ tag }}
                     </button>
