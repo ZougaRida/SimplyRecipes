@@ -15,6 +15,7 @@ class TagDetailView(ListView):
     maintained.
     """
 
+    allow_empty = False
     paginate_by = 12
 
     def get_queryset(self):

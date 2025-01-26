@@ -4,6 +4,8 @@ from django.views.generic import DetailView, ListView, TemplateView
 
 from recipe.models import Recipe, RecipeIngredient
 from tag.models import Tag
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import Http404
 
 
 class IndexView(TemplateView):
@@ -103,20 +105,23 @@ class RecipeListView(ListView):
 class RecipeDetailView(DetailView):
     def get_object(self, **kwargs):
         recipe = self.kwargs.get("recipe").replace("-", " ")
-        return Recipe.objects.prefetch_related(
-            Prefetch(
-                "ingredients",
-                queryset=RecipeIngredient.objects.select_related("ingredient").defer(
-                    "recipe"
-                ),
-                to_attr="recipe_ingredients",
-            )
-            # here for each record in RecipeIngredient we are getting the ingredient model along with it too,
-            # though without hitting the database for each ingredient.
-            # the defer method is just to get rid of at least the recipe_id field
-            # I can't get rid of primary_id since defer doesn't allow that,
-            # nor unfortunately the ingredient_id column which is simply a replica of ingredient_name column
-        ).get(name=recipe)
+        try:
+            return Recipe.objects.prefetch_related(
+                Prefetch(
+                    "ingredients",
+                    queryset=RecipeIngredient.objects.select_related(
+                        "ingredient"
+                    ).defer("recipe"),
+                    to_attr="recipe_ingredients",
+                )
+                # here for each record in RecipeIngredient we are getting the ingredient model along with it too,
+                # though without hitting the database for each ingredient.
+                # the defer method is just to get rid of at least the recipe_id field
+                # I can't get rid of primary_id since defer doesn't allow that,
+                # nor unfortunately the ingredient_id column which is simply a replica of ingredient_name column
+            ).get(name=recipe)
+        except ObjectDoesNotExist:
+            raise Http404()
 
 
 class AboutView(ListView):
